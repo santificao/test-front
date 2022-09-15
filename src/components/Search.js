@@ -37,5 +37,6 @@ export default function Search({ productData, setProductDataFiltered }) {
 }
 
 Search.propTypes = {
-    setProductDataFilterd: PropTypes.func.isRequired,
+    productData: PropTypes.array.isRequired,
+    setProductDataFiltered: PropTypes.func.isRequired,
 }

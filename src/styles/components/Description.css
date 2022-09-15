@@ -1,0 +1,13 @@
+.back {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.back a {
+    margin-top: 20px;
+}
+
+.description h4 {
+    color: #545454;
+    margin-bottom: 20px;
+}

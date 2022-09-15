@@ -10,12 +10,15 @@ export default function Home() {
 
     const [productDataFiltered, setProductDataFiltered] = useState([]);
 
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch('https://front-test-api.herokuapp.com/api/product');
             const devices = await response.json();
             setproductData(devices);
             setProductDataFiltered(devices);
+            setIsLoading(false);
         }
         fetchData();
     }, [])
@@ -26,7 +29,7 @@ export default function Home() {
                 productData={ productData }
                 setProductDataFiltered = { setProductDataFiltered }
             />
-            { productDataFiltered.length === 0 ? <Alert variant='danger' className='text-center'>No hay ningún producto que coincida con tus criterios de búsqueda</Alert> : "" }
+            { productDataFiltered.length === 0 && !isLoading ? <Alert variant='danger' className='text-center'>No hay ningún producto que coincida con tus criterios de búsqueda</Alert> : ""}
             <Products
                 productData={ productDataFiltered }
             />
