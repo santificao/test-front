@@ -6,3 +6,9 @@ Utilizaré las librerías:
 - react-router-dom: Configuraré las rutas para construir una Simple Page Application 
 
 Para la persistencia de datos en cliente utilizaré Local Storage
+
+Los scripts son los siguientes:
+npm start - Modo desarrollo
+npm run build - Compilación
+npm run test - Lanzamiento de test
+npm run eslint - Comprobación de código
