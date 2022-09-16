@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Search from "./Search";
 import Products from "./Products";
-import { Alert } from 'react-bootstrap';
+import { Alert, Container, Button } from 'react-bootstrap';
+import '../styles/components/Home.css';
 
-
-export default function Home() {
+const Home = () => {
 
     const [productData, setproductData] = useState([]);
 
     const [productDataFiltered, setProductDataFiltered] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
+
+    const [totalCart, setTotalCart] = useState(0);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -20,11 +22,27 @@ export default function Home() {
             setProductDataFiltered(devices);
             setIsLoading(false);
         }
-        fetchData();
+        fetchData();      
+        setTotalCart(localStorage.getItem('cart'));
     }, [])
+
+    const handleOnClick = (e) => {
+        e.preventDefault();
+        localStorage.clear();
+        setTotalCart(0);
+    }
 
     return (
         <>
+            <Container className="total">
+                <h5> Total productos: {totalCart ? totalCart : 0}</h5>
+                { totalCart ? 
+                    <Button 
+                        onClick={handleOnClick}
+                        variant="danger">Vaciar cesta</Button>
+                    : "" 
+                }
+            </Container>
             <Search
                 productData={ productData }
                 setProductDataFiltered = { setProductDataFiltered }
@@ -36,3 +54,5 @@ export default function Home() {
         </>
     )
 }
+
+export default Home;

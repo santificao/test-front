@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Row, Col, Card, Button } from "react-bootstrap";
 import { Link, useParams } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import '../styles/components/Description.css';
 
 export default function Description () {
     
+    let params = useParams();
+
+    const navigate = useNavigate();
+
     const [productInfo, setproductInfo] = useState([]);
 
     const [selection, setSelection] = useState({
@@ -12,8 +17,6 @@ export default function Description () {
         colorCode: '',
         storageCode: ''
     })
-
-    let params = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,7 +35,6 @@ export default function Description () {
 
     const handleOnSubmit = e => {
         e.preventDefault();
-        console.log(selection);
         const settings = {
             method: 'POST',
             headers: {
@@ -44,7 +46,10 @@ export default function Description () {
         const fetchData = async () => {
             const fetchResponse = await fetch(`https://front-test-api.herokuapp.com/api/cart`, settings);
             const data = await fetchResponse.json();
-            return data;
+            const actualCart = localStorage.getItem('cart');
+            const totalCart = actualCart ? parseInt(actualCart) + parseInt(data.count) : parseInt(data.count);
+            localStorage.setItem('cart', totalCart);
+            navigate('/');
         }
         fetchData();
     }
@@ -121,7 +126,7 @@ export default function Description () {
                                     </Row>
                                     <Row className='justify-content-end'>
                                         <Col md={4}>
-                                            <Button type="submit">Añadir al carrito</Button>    
+                                            <Button type="submit"> Añadir al carrito </Button>
                                         </Col>
                                     </Row>
                                 </Form>
@@ -130,7 +135,6 @@ export default function Description () {
                     </Col>
                 </Row>
             </Container>
-
         </>
     );
   }

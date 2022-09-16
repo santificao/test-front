@@ -17,7 +17,7 @@ root.render(
   <BrowserRouter>
     <App />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route path="/" replace element={<Home />} />
       <Route path='/detalle/:id' element={<Description />} />
     </Routes>
   </BrowserRouter>
